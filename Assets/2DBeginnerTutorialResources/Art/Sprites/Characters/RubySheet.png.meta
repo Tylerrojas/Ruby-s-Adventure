@@ -249,7 +249,7 @@ TextureImporter:
       name: RubyRunSide2
       rect:
         serializedVersion: 2
-        x: 256
+        x: 258
         y: 1280
         width: 256
         height: 256
@@ -400,7 +400,7 @@ TextureImporter:
         y: 768
         width: 256
         height: 256
-      alignment: 7
+      alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
@@ -417,7 +417,7 @@ TextureImporter:
       name: RubyRunDown2
       rect:
         serializedVersion: 2
-        x: 256
+        x: 258
         y: 768
         width: 256
         height: 256
