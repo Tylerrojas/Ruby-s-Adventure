@@ -15,6 +15,9 @@ public class RubyController : MonoBehaviour
     
     public int health { get { return currentHealth; }}
     int currentHealth;
+
+    public ParticleSystem damageEffect;
+    public ParticleSystem healEffect;
     
     public float timeInvincible = 2.0f;
     bool isInvincible;
@@ -95,6 +98,15 @@ public class RubyController : MonoBehaviour
 
     public void ChangeHealth(int amount)
     {
+        if(amount > 0){
+            // heal
+            healEffect.Play();
+        }else{
+            // damage
+            damageEffect.Play();
+        }
+
+
         if (amount < 0)
         {
             if (isInvincible)
