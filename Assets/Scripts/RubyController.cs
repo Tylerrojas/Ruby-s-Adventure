@@ -1,17 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class RubyController : MonoBehaviour
 {
     public float speed = 3.0f;
     
     public int maxHealth = 5;
+
+    public int score = 0;
+    public TextMeshProUGUI scoreText;
+
+    public TextMeshProUGUI gameOverText;
+
+    public bool gameOver = false;
     
     public GameObject projectilePrefab;
     
     public AudioClip throwSound;
     public AudioClip hitSound;
+    public AudioClip NPCint;
     
     public int health { get { return currentHealth; }}
     int currentHealth;
@@ -45,7 +56,7 @@ public class RubyController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {   
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
         
@@ -82,7 +93,30 @@ public class RubyController : MonoBehaviour
                 if (character != null)
                 {
                     character.DisplayDialog();
+                    PlaySound(NPCint);
                 }
+            }
+        }
+
+        if (health < 1)
+        {
+             gameOverText.gameObject.SetActive(true);
+             gameOverText.text = "You lost! Press R to Restart!";
+             gameOver = true;
+             speed = 0;
+        }
+
+        if (score > 1)
+        {
+             gameOverText.gameObject.SetActive(true); 
+             gameOverText.text = "You Win! Made by Group 22";
+        }
+
+        if (Input.GetKey(KeyCode.R))
+        {
+            if (gameOver == true)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
         }
     }
@@ -121,6 +155,19 @@ public class RubyController : MonoBehaviour
         currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
         
         UIHealthBar.instance.SetValue(currentHealth / (float)maxHealth);
+    }
+
+    public void ChangeScore(int scoreAmount)
+    {
+        score = (score + scoreAmount);
+        if (scoreText != null)
+        {
+            scoreText.text = "Bots Fixed: " + score.ToString();
+        }
+        else
+        {
+            Debug.LogError("ChangeScore(): variable scoreText is not set to a text mesh pro component");
+        }
     }
     
     void Launch()
