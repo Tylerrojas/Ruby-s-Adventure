@@ -31,6 +31,15 @@ public class Projectile : MonoBehaviour
         {
             e.Fix();
         }
+        // Check if FollowEnemy
+        // debug
+        Debug.Log(other.collider.name);
+        FollowEnemy fe = other.collider.GetComponent<FollowEnemy>();
+        if (fe != null)
+        {
+            fe.Kill();
+        }
+
     
         Destroy(gameObject);
     }
